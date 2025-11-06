@@ -7,27 +7,37 @@ namespace DEMO_AvaloniaApplication.ViewModels;
 
 public class FileItemViewModel : ObservableObject
 {
-    private string _fileName;
-    private string _filePath;
-    private string _fileSize;
+    private string _name;
+    private string _path;
+    private string _size;
+    private string? _error;
     private DateTime _date;
 
     public string FileName
     {
-        get => _fileName;
-        set => SetProperty(ref _fileName, value);
+        get => _name;
+        set => SetProperty(ref _name, value);
     }
 
     public string FilePath
     {
-        get => _filePath;
-        set => SetProperty(ref _filePath, value);
+        get => _path;
+        set => SetProperty(ref _path, value);
     }
 
     public string FileSize
     {
-        get => _fileSize;
-        set => SetProperty(ref _fileSize, value);
+        get => _size;
+        set => SetProperty(ref _size, value);
+    }
+    public string? ErrorMessage
+    {
+        get => _error;
+        set
+        {
+            SetProperty(ref _error, value);
+            OnPropertyChanged(nameof(HasError));
+        }
     }
 
     public DateTime Date
@@ -36,10 +46,20 @@ public class FileItemViewModel : ObservableObject
         set => SetProperty(ref _date, value);
     }
 
+    public bool HasError
+    {
+        get => string.IsNullOrEmpty(ErrorMessage);
+    }
+
     public ICommand DeleteCommand { get; }
 
-    public FileItemViewModel(Action<FileItemViewModel> onDelete)
+    public FileItemViewModel(string name, string path, string size, DateTime date, Action<FileItemViewModel> onDelete, string? error = null)
     {
-        DeleteCommand = new RelayCommand(() => onDelete(this));
+        _name = name;
+        _path = path;
+        _size = size;
+        _error = error;
+        _date = date;
+        DeleteCommand = DeleteCommand = new RelayCommand(() => onDelete(this)); ;
     }
 }

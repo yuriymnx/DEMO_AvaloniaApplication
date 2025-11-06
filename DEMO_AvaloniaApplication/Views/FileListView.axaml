@@ -1,69 +1,105 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="DEMO_AvaloniaApplication.FileListView">
+ï»¿<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:viewmodels="using:DEMO_AvaloniaApplication.ViewModels"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="DEMO_AvaloniaApplication.FileListView"
+			 x:DataType="viewmodels:FileListViewModel">
 
-    <ScrollViewer>
-        <ItemsControl ItemsSource="{Binding Files}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border Margin="0 4"
-                            Background="{DynamicResource ThemeBackgroundBrush}"
-                            CornerRadius="8"
-                            Padding="8 6"
-                            BorderBrush="#ddd"
-                            BorderThickness="1">
-                        <Grid ColumnDefinitions="Auto,*,Auto,Auto"
-                              RowDefinitions="Auto,Auto">
+	<ScrollViewer>
+		<Border Background="#FFF"
+				CornerRadius="8" Padding="12"
+				BorderBrush="Black" BorderThickness="2">
+			<ItemsControl ItemsSource="{Binding Files}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Border BorderThickness="1" BorderBrush="Black">
+							<Grid Margin="10"
+								  ColumnDefinitions="Auto,*,Auto,Auto"
+								  RowDefinitions="Auto,Auto,Auto,1">
 
-                            <!-- Èìÿ ôàéëà -->
-                            <TextBlock Grid.Column="0"
-                                       Text="{Binding FileName}"
-                                       FontWeight="Bold"
-                                       TextTrimming="CharacterEllipsis"
-                                       VerticalAlignment="Center"/>
+								<!-- Ð˜Ð¼Ñ Ñ„Ð°Ð¹Ð»Ð° -->
+								<TextBlock Grid.Column="0"
+										   Text="{Binding FileName}"
+										   FontWeight="SemiBold"
+										   FontSize="14"
+										   Margin="5"
+										   Foreground="Black"
+										   TextTrimming="CharacterEllipsis"
+										   VerticalAlignment="Center"/>
 
-                            <!-- Ðàçìåð -->
-                            <TextBlock Grid.Column="2"
-                                       Text="{Binding FileSize}"
-                                       FontWeight="Medium"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Right"/>
+								<!-- Ð Ð°Ð·Ð¼ÐµÑ€ -->
+								<TextBlock Grid.Column="2"
+										   Text="{Binding FileSize}"
+										   FontSize="12"
+										   Margin="5"
+										   Foreground="#666"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Right"/>
 
-                            <!-- Ïóòü -->
-                            <TextBlock Grid.Row="1"
-                                       Grid.ColumnSpan="2"
-                                       Text="{Binding FilePath}"
-                                       FontSize="12"
-                                       Foreground="Gray"
-                                       TextTrimming="CharacterEllipsis"/>
+								<!-- ÐŸÑƒÑ‚ÑŒ -->
+								<TextBlock Grid.Row="1"
+										   Grid.ColumnSpan="2"
+										   Text="{Binding FilePath}"
+										   FontSize="12"
+										   Margin="5"
+										   Foreground="Gray"
+										   TextTrimming="CharacterEllipsis"/>
 
-                            <!-- Äàòà -->
-                            <TextBlock Grid.Row="1"
-                                       Grid.Column="2"
-                                       Text="{Binding Date, StringFormat='{}{0:HH:mm, dd.MM.yyyy}'}"
-                                       FontSize="12"
-                                       Foreground="Gray"
-                                       HorizontalAlignment="Right"/>
+								<!-- Ð”Ð°Ñ‚Ð° -->
+								<TextBlock Grid.Row="1"
+										   Grid.Column="2"
+										   Text="{Binding Date, StringFormat='{}{0:HH:mm, dd.MM.yyyy}'}"
+										   FontSize="12"
+										   Margin="5"
+										   Foreground="Gray"
+										   HorizontalAlignment="Right"/>
 
-                            <!-- Êíîïêà óäàëåíèÿ -->
-                            <Button Grid.RowSpan="2"
-                                    Grid.Column="3"
-                                    Command="{Binding DeleteCommand}"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Padding="4"
-                                    ToolTip.Tip="Óäàëèòü">
-                                <PathIcon Data="M3,6 L5,6 L21,6 L21,8 L19,8 L19,20 L5,20 L5,8 L3,8 L3,6 Z M7,8 L7,18 L17,18 L17,8 L7,8 Z"
-                                          Width="14"
-                                          Height="14"/>
-                            </Button>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </ScrollViewer>
+								<!-- ÐšÐ½Ð¾Ð¿ÐºÐ° ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ -->
+								<Button Grid.RowSpan="2"
+										Grid.Column="3"
+										Command="{Binding DeleteCommand}"
+										Background="Transparent"
+										BorderThickness="0"
+										Margin="5"
+										Padding="4"
+										ToolTip.Tip="Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ">
+									<PathIcon Data="M3,6 L5,6 L21,6 L21,8 L19,8 L19,20 L5,20 L5,8 L3,8 L3,6 Z M7,8 L7,18 L17,18 L17,8 L7,8 Z"
+											  Width="14"
+											  Height="14"
+											  Foreground="Black"/>
+								</Button>
+								<Border Grid.Row="2"
+										Grid.ColumnSpan="4"
+										Margin="10"
+										Background="#FFF5F5"
+										CornerRadius="4"
+										Padding="8"
+										BorderBrush="#FFD6D6"
+										BorderThickness="1"
+										IsVisible="{Binding !HasError}">
+									<StackPanel Orientation="Horizontal"
+												Spacing="8">
+										<Path Data="M12,2A10,10 0 1,0 22,12A10,10 0 0,0 12,2ZM11,7H13V13H11V7ZM11,15H13V17H11V15Z"
+											  Width="16"
+											  Height="16"
+											  Fill="#D32F2F"/>
+										<TextBlock Text="{Binding ErrorMessage}"
+												   Foreground="Black"
+												   FontSize="12"/>
+									</StackPanel>
+								</Border>
+								<Border
+								Grid.Row="3"
+								Grid.ColumnSpan="4"
+								Height="1"
+								Background="Gray"/>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</Border>
+	</ScrollViewer>
 </UserControl>
