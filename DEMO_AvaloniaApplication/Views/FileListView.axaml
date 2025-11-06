@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DEMO_AvaloniaApplication.FileListView">
+
+    <ScrollViewer>
+        <ItemsControl ItemsSource="{Binding Files}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0 4"
+                            Background="{DynamicResource ThemeBackgroundBrush}"
+                            CornerRadius="8"
+                            Padding="8 6"
+                            BorderBrush="#ddd"
+                            BorderThickness="1">
+                        <Grid ColumnDefinitions="Auto,*,Auto,Auto"
+                              RowDefinitions="Auto,Auto">
+
+                            <!-- Имя файла -->
+                            <TextBlock Grid.Column="0"
+                                       Text="{Binding FileName}"
+                                       FontWeight="Bold"
+                                       TextTrimming="CharacterEllipsis"
+                                       VerticalAlignment="Center"/>
+
+                            <!-- Размер -->
+                            <TextBlock Grid.Column="2"
+                                       Text="{Binding FileSize}"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"/>
+
+                            <!-- Путь -->
+                            <TextBlock Grid.Row="1"
+                                       Grid.ColumnSpan="2"
+                                       Text="{Binding FilePath}"
+                                       FontSize="12"
+                                       Foreground="Gray"
+                                       TextTrimming="CharacterEllipsis"/>
+
+                            <!-- Дата -->
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="2"
+                                       Text="{Binding Date, StringFormat='{}{0:HH:mm, dd.MM.yyyy}'}"
+                                       FontSize="12"
+                                       Foreground="Gray"
+                                       HorizontalAlignment="Right"/>
+
+                            <!-- Кнопка удаления -->
+                            <Button Grid.RowSpan="2"
+                                    Grid.Column="3"
+                                    Command="{Binding DeleteCommand}"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Padding="4"
+                                    ToolTip.Tip="Удалить">
+                                <PathIcon Data="M3,6 L5,6 L21,6 L21,8 L19,8 L19,20 L5,20 L5,8 L3,8 L3,6 Z M7,8 L7,18 L17,18 L17,8 L7,8 Z"
+                                          Width="14"
+                                          Height="14"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
+</UserControl>
